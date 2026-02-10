@@ -4,54 +4,71 @@
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
+      # 接続されたモニターを自動検出して使う
       monitor = [ ",preferred,auto,1" ];
 
       env = [
+        # VMなどソフトウェアレンダリングが必要な環境用
         "WLR_RENDERER_ALLOW_SOFTWARE,1"
+        # fcitx5を入力メソッドとして指定
         "XMODIFIERS,@im=fcitx"
       ];
 
       cursor = {
+        # VM環境でカーソルが消える問題の回避
         no_hardware_cursors = true;
       };
 
       general = {
-        gaps_in = 4;
-        gaps_out = 8;
+        gaps_in = 4; # ウィンドウ間の隙間
+        gaps_out = 8; # 画面端との隙間
         border_size = 2;
-        "col.active_border" = "rgba(88c0d0ff)";
-        "col.inactive_border" = "rgba(4c566aff)";
+        "col.active_border" = "rgba(88c0d0ff)"; # Nord blue
+        "col.inactive_border" = "rgba(4c566aff)"; # Nord gray
       };
 
       decoration = {
-        rounding = 8;
+        rounding = 8; # ウィンドウ角の丸み
       };
 
       input = {
         kb_layout = "us";
-        follow_mouse = 1;
+        follow_mouse = 1; # マウスが乗ったウィンドウにフォーカス
       };
 
+      # 起動時に一度だけ実行
       exec-once = [
-        "fcitx5 -d"
-        "wl-paste --watch cliphist store"
+        "fcitx5 -d" # 日本語入力デーモン
+        "wl-paste --watch cliphist store" # クリップボード履歴の記録
       ];
 
+      # Mod キー = Windows/Super キー
       "$mod" = "SUPER";
 
       bind = [
-        "$mod, Return, exec, kitty"
-        "$mod, D, exec, wofi --show drun"
-        "$mod, C, killactive"
-        ", Print, exec, grim - | wl-copy"
-        "$mod, Print, exec, grim -g \"$(slurp)\" - | wl-copy"
+        # アプリ起動
+        "$mod, Return, exec, kitty" # ターミナル
+        "$mod, D, exec, wofi --show drun" # アプリランチャー
+        "$mod, C, killactive" # ウィンドウを閉じる
+
+        # スクリーンショット
+        ", Print, exec, grim - | wl-copy" # 全画面→クリップボード
+        "$mod, Print, exec, grim -g \"$(slurp)\" - | wl-copy" # 範囲選択→クリップボード
+
+        # クリップボード履歴
         "$mod, P, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
+
+        # ウィンドウ操作
         "$mod, F, fullscreen"
         "$mod, V, togglefloating"
-        "$mod, H, movefocus, l"
-        "$mod, L, movefocus, r"
-        "$mod, K, movefocus, u"
-        "$mod, J, movefocus, d"
+
+        # フォーカス移動 (Vim風: h/j/k/l)
+        "$mod, H, movefocus, l" # 左
+        "$mod, L, movefocus, r" # 右
+        "$mod, K, movefocus, u" # 上
+        "$mod, J, movefocus, d" # 下
+
+        # ワークスペース切り替え
         "$mod, 1, workspace, 1"
         "$mod, 2, workspace, 2"
         "$mod, 3, workspace, 3"
@@ -61,6 +78,8 @@
         "$mod, 7, workspace, 7"
         "$mod, 8, workspace, 8"
         "$mod, 9, workspace, 9"
+
+        # ウィンドウを別ワークスペースに移動
         "$mod SHIFT, 1, movetoworkspace, 1"
         "$mod SHIFT, 2, movetoworkspace, 2"
         "$mod SHIFT, 3, movetoworkspace, 3"
@@ -72,23 +91,26 @@
         "$mod SHIFT, 9, movetoworkspace, 9"
       ];
 
+      # マウスバインド (Mod+ドラッグ)
       bindm = [
-        "$mod, mouse:272, movewindow"
-        "$mod, mouse:273, resizewindow"
+        "$mod, mouse:272, movewindow" # 左ドラッグ: ウィンドウ移動
+        "$mod, mouse:273, resizewindow" # 右ドラッグ: リサイズ
       ];
     };
   };
 
+  # ターミナルエミュレータ
   programs.kitty = {
     enable = true;
     settings = {
       font_family = "Hack Nerd Font";
       font_size = 12;
       background_opacity = "0.9";
-      confirm_os_window_close = 0;
+      confirm_os_window_close = 0; # 閉じる時の確認ダイアログを無効化
     };
   };
 
+  # ステータスバー
   programs.waybar = {
     enable = true;
     settings = {
@@ -107,23 +129,40 @@
     };
   };
 
+  # 通知デーモン
   services.mako = {
     enable = true;
     settings = {
-      default-timeout = 5000;
+      default-timeout = 5000; # 5秒で自動消去
       border-radius = 8;
     };
   };
 
   home.packages = with pkgs; [
+    # ランチャー/ブラウザ
     wofi
     brave
+
+    # スクリーンショット/クリップボード
     grim
     slurp
     wl-clipboard
     cliphist
+
+    # ファイル管理
     thunar
+    xfce.thunar-archive-plugin
+    file-roller
     xdg-utils
+
+    # アーカイブ
+    unzip
+    unrar
+    p7zip
+
+    # メディア
     imv
+    mpv
+    ffmpeg
   ];
 }

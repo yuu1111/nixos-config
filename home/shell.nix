@@ -8,10 +8,11 @@
       la = "eza -la";
       gs = "git status";
       gd = "git diff";
-      nrs = "sudo nixos-rebuild switch --flake /etc/nixos#vm";
+      nrs = "sudo nixos-rebuild switch --flake /etc/nixos#vm"; # NixOS再ビルド
     };
   };
 
+  # Starship: カスタマイズ可能なプロンプト (~/.config/starship.toml で設定)
   programs.starship = {
     enable = true;
     enableBashIntegration = true;

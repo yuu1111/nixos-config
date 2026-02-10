@@ -2,21 +2,24 @@
 
 {
   imports = [
-    ./hardware-configuration.nix
-    ../../modules/base.nix
-    ../../modules/dev.nix
-    ../../modules/user.nix
-    ../../modules/desktop.nix
+    ./hardware-configuration.nix # nixos-generate-config が生成したハードウェア設定
+    ../../modules/base.nix # 基本設定 (locale, ネットワーク等)
+    ../../modules/dev.nix # 開発ツール (gcc, make等)
+    ../../modules/user.nix # ユーザーアカウント
+    ../../modules/desktop.nix # デスクトップ環境 (Hyprland, 音声, フォント)
   ];
 
   networking.hostName = "nixos-vm";
 
+  # ブートローダー (BIOS/MBR)
   boot.loader.grub = {
     enable = true;
     device = "/dev/sda";
   };
 
+  # VM環境ではジャーナリングチェックをスキップ (起動高速化)
   boot.initrd.checkJournalingFS = false;
 
+  # VirtualBox Guest Additions (共有フォルダ, 解像度自動調整等)
   virtualisation.virtualbox.guest.enable = true;
 }

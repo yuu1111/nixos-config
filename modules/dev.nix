@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 {
+  # ビルドツール (ネイティブ依存のあるパッケージのコンパイル用)
   environment.systemPackages = with pkgs; [
     gcc
     gnumake
