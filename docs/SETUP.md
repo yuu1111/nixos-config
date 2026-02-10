@@ -108,3 +108,4 @@ nvim --version
 direnv --version
 git log --show-signature  # 署名確認
 ```
+
