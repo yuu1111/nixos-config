@@ -6,12 +6,13 @@
     ./git.nix
     ./editor.nix
     ./dev.nix
+    ./hyprland.nix
   ];
 
   home = {
     username = "dev";
     homeDirectory = "/home/dev";
-    stateVersion = "24.11";
+    stateVersion = "25.11";
   };
 
   programs.home-manager.enable = true;

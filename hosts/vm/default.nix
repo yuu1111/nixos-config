@@ -6,6 +6,7 @@
     ../../modules/base.nix
     ../../modules/dev.nix
     ../../modules/user.nix
+    ../../modules/desktop.nix
   ];
 
   networking.hostName = "nixos-vm";
