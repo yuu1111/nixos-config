@@ -13,7 +13,7 @@
 
   programs.git = {
     enable = true;
-    userName = "yuu111";
+    userName = "yuu1111";
     userEmail = "yuu210yuu@gmail.com";
     delta.enable = true; # diff をシンタックスハイライト付きで表示
     signing = {
