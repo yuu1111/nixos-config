@@ -150,7 +150,7 @@
     cliphist
 
     # ファイル管理
-    thunar
+    xfce.thunar
     xfce.thunar-archive-plugin
     file-roller
     xdg-utils
