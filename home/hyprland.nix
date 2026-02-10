@@ -8,6 +8,7 @@
 
       env = [
         "WLR_RENDERER_ALLOW_SOFTWARE,1"
+        "XMODIFIERS,@im=fcitx"
       ];
 
       cursor = {
@@ -30,6 +31,10 @@
         kb_layout = "us";
         follow_mouse = 1;
       };
+
+      exec-once = [
+        "fcitx5 -d"
+      ];
 
       "$mod" = "SUPER";
 
@@ -108,5 +113,6 @@
 
   home.packages = with pkgs; [
     wofi
+    brave
   ];
 }
