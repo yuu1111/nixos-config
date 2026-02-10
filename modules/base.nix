@@ -4,6 +4,9 @@
   # flake と nix コマンドを有効化
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # unfreeパッケージを許可 (unrar等)
+  nixpkgs.config.allowUnfree = true;
+
   time.timeZone = "Asia/Tokyo";
 
   i18n = {
