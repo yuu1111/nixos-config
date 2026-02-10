@@ -10,7 +10,7 @@
 | グラフィックス | VMSVGA |
 | ネットワーク | NAT |
 
-ISO: [NixOS 24.11 Minimal](https://nixos.org/download/#nixos-iso)
+ISO: [NixOS 25.11 Minimal](https://nixos.org/download/#nixos-iso)
 
 ## 2. NixOS インストール
 
