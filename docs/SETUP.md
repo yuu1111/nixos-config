@@ -45,10 +45,11 @@ sudo nixos-generate-config --root /mnt
 sudo nano /mnt/etc/nixos/configuration.nix
 ```
 
+閉じ `}` の前に以下を追記:
+
 ```nix
-# 以下を追記/変更
 nix.settings.experimental-features = [ "nix-command" "flakes" ];
-environment.systemPackages = [ pkgs.git pkgs.vim ];
+environment.systemPackages = with pkgs; [ git vim ];
 users.users.dev = {
   isNormalUser = true;
   extraGroups = [ "wheel" ];
