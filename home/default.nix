@@ -7,6 +7,8 @@
     ./editor.nix
     ./dev.nix
     ./hyprland.nix
+    ./theme.nix
+    ./xdg.nix
   ];
 
   home = {

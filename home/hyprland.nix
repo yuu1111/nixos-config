@@ -34,6 +34,7 @@
 
       exec-once = [
         "fcitx5 -d"
+        "wl-paste --watch cliphist store"
       ];
 
       "$mod" = "SUPER";
@@ -42,6 +43,9 @@
         "$mod, Return, exec, kitty"
         "$mod, D, exec, wofi --show drun"
         "$mod, C, killactive"
+        ", Print, exec, grim - | wl-copy"
+        "$mod, Print, exec, grim -g \"$(slurp)\" - | wl-copy"
+        "$mod, P, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
         "$mod, F, fullscreen"
         "$mod, V, togglefloating"
         "$mod, H, movefocus, l"
@@ -114,5 +118,12 @@
   home.packages = with pkgs; [
     wofi
     brave
+    grim
+    slurp
+    wl-clipboard
+    cliphist
+    thunar
+    xdg-utils
+    imv
   ];
 }
