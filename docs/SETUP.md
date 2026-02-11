@@ -107,6 +107,7 @@ bun i -g @anthropic-ai/claude-code
 
 # 動作確認
 node --version
+bun --version
 nvim --version
 direnv --version
 claude --version
