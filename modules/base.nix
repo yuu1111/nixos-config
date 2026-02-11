@@ -10,9 +10,10 @@
   time.timeZone = "Asia/Tokyo";
 
   i18n = {
-    defaultLocale = "en_US.UTF-8";
+    defaultLocale = "ja_JP.UTF-8"; # システム言語を日本語に
     extraLocaleSettings = {
-      LC_TIME = "ja_JP.UTF-8"; # 日付表示を日本語形式に
+      LC_TIME = "ja_JP.UTF-8";
+      LC_MESSAGES = "ja_JP.UTF-8";
     };
   };
 

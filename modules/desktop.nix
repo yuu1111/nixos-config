@@ -35,6 +35,13 @@
     ];
   };
 
+  # fcitx5の環境変数 (全アプリで日本語入力を有効化)
+  environment.sessionVariables = {
+    XMODIFIERS = "@im=fcitx";
+    QT_IM_MODULE = "fcitx";
+    GTK_IM_MODULE = "fcitx";
+  };
+
   # 権限昇格ダイアログ (GUIアプリがroot権限を要求する時に必要)
   security.polkit.enable = true;
 }
