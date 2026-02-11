@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 
 {
+  # bun global bin (claude-code等)
+  home.sessionPath = [ "$HOME/.bun/bin" ];
+
   programs.bash = {
     enable = true;
     shellAliases = {
