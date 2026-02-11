@@ -1,18 +1,13 @@
 { config, pkgs, ... }:
 
 {
-  # Hyprland (Waylandタイリングウィンドウマネージャ)
-  programs.hyprland.enable = true;
+  # KDE Plasma 6
+  services.desktopManager.plasma6.enable = true;
 
-  # ログイン画面 (TUIベースのgreeter)
-  services.greetd = {
+  # ログイン画面 (KDE標準)
+  services.displayManager.sddm = {
     enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd 'WLR_RENDERER_ALLOW_SOFTWARE=1 Hyprland'";
-        user = "greeter";
-      };
-    };
+    wayland.enable = true;
   };
 
   # オーディオ (PipeWire = PulseAudio互換 + ALSA互換)
@@ -29,13 +24,6 @@
     nerd-fonts.hack # ターミナル用 (アイコン付き)
   ];
 
-  # Waylandのスクリーンショット/クリップボード (システムレベル)
-  environment.systemPackages = with pkgs; [
-    grim
-    slurp
-    wl-clipboard
-  ];
-
   # 日本語入力 (fcitx5 + Mozc)
   i18n.inputMethod = {
     type = "fcitx5";
@@ -43,6 +31,7 @@
     fcitx5.addons = with pkgs; [
       fcitx5-mozc # Google日本語入力互換エンジン
       fcitx5-gtk # GTKアプリとの統合
+      fcitx5-qt # QT/KDEアプリとの統合
     ];
   };
 

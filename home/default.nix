@@ -6,7 +6,8 @@
     ./git.nix # Git + GPG署名
     ./editor.nix # Neovim
     ./dev.nix # 開発ツール (Node.js, CLI等)
-    ./hyprland.nix # ウィンドウマネージャ + ステータスバー + アプリ
+    ./desktop.nix # 共通デスクトップアプリ (ブラウザ, アーカイブ, メディア)
+    # ./hyprland.nix # Hyprland用 (タイリングWM, waybar, mako) ※KDE時は不要
     ./theme.nix # GTKテーマ + カーソル
     ./xdg.nix # デフォルトアプリの関連付け
   ];
