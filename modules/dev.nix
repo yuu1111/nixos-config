@@ -11,5 +11,5 @@
 
   # Docker (必要時にコメントを外す)
   # virtualisation.docker.enable = true;
-  # users.users.dev.extraGroups = [ "docker" ];
+  # users.users.yuu1111.extraGroups = [ "docker" ];
 }

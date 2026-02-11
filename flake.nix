@@ -21,8 +21,8 @@
           # システム全体の pkgs をhome-managerでも共有
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          # dev ユーザーのhome-manager設定
-          home-manager.users.dev = import ./home;
+          # yuu1111 ユーザーのhome-manager設定
+          home-manager.users.yuu1111 = import ./home;
         }
       ];
     };

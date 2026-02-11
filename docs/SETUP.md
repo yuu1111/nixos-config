@@ -50,10 +50,10 @@ sudo nano /mnt/etc/nixos/configuration.nix
 ```nix
 nix.settings.experimental-features = [ "nix-command" "flakes" ];
 environment.systemPackages = with pkgs; [ git vim ];
-users.users.dev = {
+users.users.yuu1111 = {
   isNormalUser = true;
   extraGroups = [ "wheel" ];
-  initialPassword = "nixos";
+  initialPassword = "114514";
 };
 ```
 
@@ -65,7 +65,7 @@ sudo reboot
 
 ## 3. Flake構成の適用
 
-再起動後 `dev` ユーザーでログインする(パスワード: `nixos`)。
+再起動後 `yuu1111` ユーザーでログインする(パスワード: `114514`)。
 
 ```bash
 # このリポジトリをclone

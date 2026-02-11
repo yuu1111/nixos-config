@@ -14,8 +14,8 @@
   ];
 
   home = {
-    username = "dev";
-    homeDirectory = "/home/dev";
+    username = "yuu1111";
+    homeDirectory = "/home/yuu1111";
     stateVersion = "25.11"; # home-managerのバージョン追跡用 (手動変更不要)
   };
 
