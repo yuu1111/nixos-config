@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
       # home-manager が使う nixpkgs を上の nixpkgs に揃える
@@ -15,11 +16,18 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, plasma-manager, ... }: {
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, plasma-manager, ... }:
+  let
+    system = "x86_64-linux";
+    unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
+  in
+  {
     # "vm" という名前のNixOS構成を定義
     nixosConfigurations.vm = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+      inherit system;
       modules = [
+        # 特定パッケージだけ unstable から取得
+        { nixpkgs.overlays = [ (final: prev: { bun = unstable.bun; }) ]; }
         ./hosts/vm # VM固有のハードウェア設定・ブートローダー
         home-manager.nixosModules.home-manager
         {

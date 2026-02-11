@@ -81,20 +81,24 @@ sudo nixos-rebuild switch --flake ~/nixos-config#vm
 
 ## 4. GPG鍵のインポート
 
-Windows側でエクスポート:
+Windows側でエクスポートしてHTTPサーバーを起動:
 
 ```powershell
 gpg --export-secret-keys 62EECDA58B4A967D > key.gpg
+python -m http.server 8080
 ```
 
-ファイルをVMに転送(共有フォルダ、scp等)してからインポート:
+VM側でダウンロードしてインポート (NATの場合ホストは10.0.2.2):
 
 ```bash
-gpg --import key.gpg
+curl http://10.0.2.2:8080/key.gpg -o ~/key.gpg
+gpg --import ~/key.gpg
 gpg --edit-key 62EECDA58B4A967D trust
 # → 5 (ultimate) を選択 → quit
-rm key.gpg
+rm ~/key.gpg
 ```
+
+転送後、Windows側のサーバーをCtrl+Cで停止し `key.gpg` を削除する。
 
 ## 5. 初回ログイン後
 
