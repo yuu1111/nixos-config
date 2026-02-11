@@ -31,7 +31,7 @@
     fcitx5.addons = with pkgs; [
       fcitx5-mozc # Google日本語入力互換エンジン
       fcitx5-gtk # GTKアプリとの統合
-      fcitx5-qt # QT/KDEアプリとの統合
+      libsForQt5.fcitx5-qt # QT/KDEアプリとの統合
     ];
   };
 
