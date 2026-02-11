@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  # デフォルトアプリの関連付け (ファイルをダブルクリックした時に開くアプリ)
+  # デフォルトアプリの関連付け
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {

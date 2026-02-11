@@ -6,7 +6,9 @@
     ../../modules/base.nix # 基本設定 (locale, ネットワーク等)
     ../../modules/dev.nix # 開発ツール (gcc, make等)
     ../../modules/user.nix # ユーザーアカウント
-    ../../modules/desktop.nix # デスクトップ環境 (Hyprland, 音声, フォント)
+    ../../modules/desktop.nix # 共通デスクトップ (音声, フォント, fcitx5)
+    ../../modules/kde # KDE Plasma + SDDM
+    # ../../modules/hyprland # Hyprland + greetd
   ];
 
   networking.hostName = "nixos-vm";

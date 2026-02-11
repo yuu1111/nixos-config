@@ -7,7 +7,8 @@
     ./editor.nix # Neovim
     ./dev.nix # 開発ツール (Node.js, CLI等)
     ./desktop.nix # 共通デスクトップアプリ (ブラウザ, アーカイブ, メディア)
-    # ./hyprland.nix # Hyprland用 (タイリングWM, waybar, mako) ※KDE時は不要
+    ./kde # KDE固有 (fcitx5プロファイル等)
+    # ./hyprland # Hyprland固有 (タイリングWM, waybar, mako)
     ./theme.nix # GTKテーマ + カーソル
     ./xdg.nix # デフォルトアプリの関連付け
   ];

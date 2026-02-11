@@ -1,5 +1,17 @@
 { config, pkgs, ... }:
 
+let
+  launcherPkgs = with pkgs; [
+    wofi
+  ];
+
+  screenshotPkgs = with pkgs; [
+    grim
+    slurp
+    wl-clipboard
+    cliphist
+  ];
+in
 {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -127,14 +139,5 @@
     };
   };
 
-  home.packages = with pkgs; [
-    # ランチャー
-    wofi
-
-    # スクリーンショット/クリップボード
-    grim
-    slurp
-    wl-clipboard
-    cliphist
-  ];
+  home.packages = launcherPkgs ++ screenshotPkgs;
 }

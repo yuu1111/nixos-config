@@ -1,15 +1,18 @@
 { config, pkgs, ... }:
 
+let
+  fontPkgs = with pkgs; [
+    noto-fonts # 基本フォント
+    noto-fonts-cjk-sans # 日本語フォント
+    nerd-fonts.hack # ターミナル用 (アイコン付き)
+  ];
+
+  fcitx5Addons = with pkgs; [
+    fcitx5-mozc # Google日本語入力互換エンジン
+    fcitx5-gtk # GTKアプリとの統合
+  ];
+in
 {
-  # KDE Plasma 6
-  services.desktopManager.plasma6.enable = true;
-
-  # ログイン画面 (KDE標準)
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
-  };
-
   # オーディオ (PipeWire = PulseAudio互換 + ALSA互換)
   services.pipewire = {
     enable = true;
@@ -17,22 +20,13 @@
     pulse.enable = true;
   };
 
-  # フォント
-  fonts.packages = with pkgs; [
-    noto-fonts # 基本フォント
-    noto-fonts-cjk-sans # 日本語フォント
-    nerd-fonts.hack # ターミナル用 (アイコン付き)
-  ];
+  fonts.packages = fontPkgs;
 
   # 日本語入力 (fcitx5 + Mozc)
   i18n.inputMethod = {
     type = "fcitx5";
     enable = true;
-    fcitx5.addons = with pkgs; [
-      fcitx5-mozc # Google日本語入力互換エンジン
-      fcitx5-gtk # GTKアプリとの統合
-      libsForQt5.fcitx5-qt # QT/KDEアプリとの統合
-    ];
+    fcitx5.addons = fcitx5Addons;
   };
 
   # fcitx5の環境変数 (全アプリで日本語入力を有効化)

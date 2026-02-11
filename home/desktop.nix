@@ -1,5 +1,29 @@
 { config, pkgs, ... }:
 
+let
+  browserPkgs = with pkgs; [
+    brave
+  ];
+
+  fileManagerPkgs = with pkgs; [
+    xfce.thunar
+    xfce.thunar-archive-plugin
+    file-roller
+    xdg-utils
+  ];
+
+  archivePkgs = with pkgs; [
+    unzip
+    unrar
+    p7zip
+  ];
+
+  mediaPkgs = with pkgs; [
+    imv
+    mpv
+    ffmpeg
+  ];
+in
 {
   # ターミナルエミュレータ
   programs.kitty = {
@@ -12,43 +36,5 @@
     };
   };
 
-  # fcitx5 入力メソッド設定 (英語キーボード + Mozc)
-  xdg.configFile."fcitx5/profile".text = ''
-    [Groups/0]
-    Name=Default
-    Default Layout=us
-    DefaultIM=mozc
-
-    [Groups/0/Items/0]
-    Name=keyboard-us
-    Layout=
-
-    [Groups/0/Items/1]
-    Name=mozc
-    Layout=
-
-    [GroupOrder]
-    0=Default
-  '';
-
-  home.packages = with pkgs; [
-    # ブラウザ
-    brave
-
-    # ファイル管理
-    xfce.thunar
-    xfce.thunar-archive-plugin
-    file-roller
-    xdg-utils
-
-    # アーカイブ
-    unzip
-    unrar
-    p7zip
-
-    # メディア
-    imv
-    mpv
-    ffmpeg
-  ];
+  home.packages = browserPkgs ++ fileManagerPkgs ++ archivePkgs ++ mediaPkgs;
 }
