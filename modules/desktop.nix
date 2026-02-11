@@ -29,11 +29,10 @@ in
     fcitx5.addons = fcitx5Addons;
   };
 
-  # fcitx5の環境変数 (全アプリで日本語入力を有効化)
+  # fcitx5の環境変数
+  # Wayland環境では GTK_IM_MODULE/QT_IM_MODULE は不要 (設定すると警告が出る)
   environment.sessionVariables = {
     XMODIFIERS = "@im=fcitx";
-    QT_IM_MODULE = "fcitx";
-    GTK_IM_MODULE = "fcitx";
   };
 
   # 権限昇格ダイアログ (GUIアプリがroot権限を要求する時に必要)
