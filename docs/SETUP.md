@@ -102,11 +102,14 @@ rm key.gpg
 # パスワード変更
 passwd
 
+# Claude Code インストール
+bun i -g @anthropic-ai/claude-code
+
 # 動作確認
 node --version
-tsc --version
 nvim --version
 direnv --version
+claude --version
 git log --show-signature  # 署名確認
 ```
 

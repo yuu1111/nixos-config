@@ -14,6 +14,10 @@
     jq # JSON整形/フィルタ
     bat # シンタックスハイライト付きcat
 
+    # Git ホスティング CLI
+    gh # GitHub CLI
+    glab # GitLab CLI
+
     # Nix
     nil # Nix LSP (エディタ補完用)
     nixpkgs-fmt # Nixフォーマッタ
