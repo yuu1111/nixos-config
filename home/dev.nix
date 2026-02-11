@@ -10,9 +10,10 @@ let
     ripgrep # 高速grep
     fd # 高速find
     eza # モダンls
-    fzf # ファジーファインダー
     jq # JSON整形/フィルタ
     bat # シンタックスハイライト付きcat
+    yazi # ターミナルファイルマネージャ
+    lazygit # Git TUI
   ];
 
   gitHostingPkgs = with pkgs; [

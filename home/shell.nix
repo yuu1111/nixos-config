@@ -15,6 +15,16 @@
     };
   };
 
+  programs.fzf = {
+    enable = true;
+    enableBashIntegration = true;
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableBashIntegration = true;
+  };
+
   # Starship: カスタマイズ可能なプロンプト (~/.config/starship.toml で設定)
   programs.starship = {
     enable = true;
