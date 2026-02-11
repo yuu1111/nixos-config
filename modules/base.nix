@@ -31,6 +31,7 @@
     git
     htop
     tree
+    fastfetch
   ];
 
   # NixOSのバージョン追跡用 (手動変更不要)
