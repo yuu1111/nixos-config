@@ -6,7 +6,6 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
-      # home-manager が使う nixpkgs を上の nixpkgs に揃える
       inputs.nixpkgs.follows = "nixpkgs";
     };
     plasma-manager = {
@@ -20,26 +19,34 @@
   let
     system = "x86_64-linux";
     unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
+
+    mkHost = { hostModule, desktop, sharedModules ? [] }:
+      nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          { nixpkgs.overlays = [ (final: prev: { bun = unstable.bun; }) ]; }
+          hostModule
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.sharedModules = sharedModules;
+            home-manager.extraSpecialArgs = { inherit desktop; };
+            home-manager.users.yuu1111 = import ./home;
+          }
+        ];
+      };
   in
   {
-    # "vm" という名前のNixOS構成を定義
-    nixosConfigurations.vm = nixpkgs.lib.nixosSystem {
-      inherit system;
-      modules = [
-        # 特定パッケージだけ unstable から取得
-        { nixpkgs.overlays = [ (final: prev: { bun = unstable.bun; }) ]; }
-        ./hosts/vm # VM固有のハードウェア設定・ブートローダー
-        home-manager.nixosModules.home-manager
-        {
-          # システム全体の pkgs をhome-managerでも共有
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          # plasma-manager を home-manager のモジュールとして共有
-          home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
-          # yuu1111 ユーザーのhome-manager設定
-          home-manager.users.yuu1111 = import ./home;
-        }
-      ];
+    nixosConfigurations.vm = mkHost {
+      hostModule = ./hosts/vm;
+      desktop = "kde";
+      sharedModules = [ plasma-manager.homeModules.plasma-manager ];
+    };
+
+    nixosConfigurations.desktop = mkHost {
+      hostModule = ./hosts/desktop;
+      desktop = "hyprland";
     };
   };
 }

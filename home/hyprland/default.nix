@@ -20,16 +20,8 @@ in
       monitor = [ ",preferred,auto,1" ];
 
       env = [
-        # VMなどソフトウェアレンダリングが必要な環境用
-        "WLR_RENDERER_ALLOW_SOFTWARE,1"
-        # fcitx5を入力メソッドとして指定
         "XMODIFIERS,@im=fcitx"
       ];
-
-      cursor = {
-        # VM環境でカーソルが消える問題の回避
-        no_hardware_cursors = true;
-      };
 
       general = {
         gaps_in = 4; # ウィンドウ間の隙間

@@ -8,7 +8,6 @@
     ../../modules/user.nix # ユーザーアカウント
     ../../modules/desktop.nix # 共通デスクトップ (音声, フォント, fcitx5)
     ../../modules/kde # KDE Plasma + SDDM
-    # ../../modules/hyprland # Hyprland + greetd
   ];
 
   networking.hostName = "nixos-vm";
