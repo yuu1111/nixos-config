@@ -4,7 +4,7 @@ let
   fontPkgs = with pkgs; [
     noto-fonts # 基本フォント
     noto-fonts-cjk-sans # 日本語フォント
-    nerd-fonts.hack # ターミナル用 (アイコン付き)
+    nerd-fonts.hack # ターミナル用
   ];
 
   fcitx5Addons = with pkgs; [

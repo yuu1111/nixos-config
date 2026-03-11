@@ -4,7 +4,7 @@
   # flake と nix コマンドを有効化
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # unfreeパッケージを許可 (unrar等)
+  # unfreeパッケージを許可
   nixpkgs.config.allowUnfree = true;
 
   time.timeZone = "Asia/Tokyo";
@@ -35,6 +35,6 @@
     fastfetch
   ];
 
-  # NixOSのバージョン追跡用 (手動変更不要)
+  # NixOSのバージョン追跡用
   system.stateVersion = "25.11";
 }

@@ -1,10 +1,10 @@
 { config, pkgs, ... }:
 
 {
-  # Hyprland (Waylandタイリングウィンドウマネージャ)
+  # Hyprland
   programs.hyprland.enable = true;
 
-  # ログイン画面 (TUIベースのgreeter)
+  # ログイン画面
   services.greetd = {
     enable = true;
     settings = {

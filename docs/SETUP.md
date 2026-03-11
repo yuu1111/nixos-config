@@ -1,3 +1,111 @@
+# NixOS セットアップ手順
+
+## 実機 (desktop) セットアップ
+
+### 1. インストールUSB作成
+
+1. [NixOS 25.11 Graphical ISO](https://nixos.org/download/#nixos-iso) をダウンロード
+2. Rufus で USB に書き込む (GPT / UEFI)
+3. 書き込み完了後、USBをエクスプローラーで開き GPG 秘密鍵をコピーしておく:
+
+```powershell
+gpg --export-secret-keys 62EECDA58B4A967D > F:\key.gpg
+```
+
+### 2. ディスク準備 (Windows側)
+
+NixOS 用のディスクを GPT で初期化する:
+
+```
+diskpart
+list disk
+select disk 3
+clean
+convert gpt
+exit
+```
+
+### 3. USBからブート・パーティション作成
+
+BIOS/UEFI で Secure Boot を無効化し、USB からブートする。
+
+```bash
+# デバイス確認
+lsblk
+
+# パーティション作成 (デバイス名は要確認)
+sudo parted /dev/sdX -- mklabel gpt
+sudo parted /dev/sdX -- mkpart ESP fat32 1MiB 512MiB
+sudo parted /dev/sdX -- set 1 esp on
+sudo parted /dev/sdX -- mkpart primary 512MiB 100%
+
+# フォーマット
+sudo mkfs.fat -F 32 -n BOOT /dev/sdX1
+sudo mkfs.ext4 -L nixos /dev/sdX2
+
+# マウント
+sudo mount /dev/disk/by-label/nixos /mnt
+sudo mkdir -p /mnt/boot
+sudo mount /dev/disk/by-label/BOOT /mnt/boot
+```
+
+### 4. 最小構成で初回インストール
+
+```bash
+sudo nixos-generate-config --root /mnt
+sudo nano /mnt/etc/nixos/configuration.nix
+```
+
+閉じ `}` の前に以下を追記:
+
+```nix
+nix.settings.experimental-features = [ "nix-command" "flakes" ];
+environment.systemPackages = with pkgs; [ git vim ];
+users.users.yuu1111 = {
+  isNormalUser = true;
+  extraGroups = [ "wheel" ];
+  initialPassword = "114514";
+};
+```
+
+```bash
+sudo nixos-install
+sudo reboot
+```
+
+### 5. Flake構成の適用
+
+```bash
+git clone https://github.com/yuu1111/nixos-config.git ~/nixos-config
+cd ~/nixos-config
+cp /etc/nixos/hardware-configuration.nix hosts/desktop/
+sudo nixos-rebuild switch --flake ~/nixos-config#desktop
+```
+
+### 6. GPG鍵のインポート
+
+インストールUSBをマウントしてインポートする:
+
+```bash
+sudo mount /dev/sdY1 /mnt
+gpg --import /mnt/key.gpg
+gpg --edit-key 62EECDA58B4A967D trust
+# → 5 (ultimate) → quit
+sudo umount /mnt
+```
+
+USBから `key.gpg` を削除すること。
+
+### 7. 初回ログイン後
+
+```bash
+passwd
+bun i -g @anthropic-ai/claude-code
+git log --show-signature  # 署名確認
+```
+
+---
+
 # NixOS VM セットアップ手順
 
 ## 1. VirtualBox VM 作成

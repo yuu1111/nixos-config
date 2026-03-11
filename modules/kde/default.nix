@@ -4,7 +4,7 @@
   # KDE Plasma 6
   services.desktopManager.plasma6.enable = true;
 
-  # ログイン画面 (KDE標準)
+  # ログイン画面
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
