@@ -15,7 +15,7 @@
     };
   };
 
-  # Waylandのスクリーンショット/クリップボード (システムレベル)
+  # Waylandのスクリーンショット/クリップボード
   environment.systemPackages = with pkgs; [
     grim
     slurp
